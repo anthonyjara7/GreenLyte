@@ -1,0 +1,21 @@
+<%# Below we call the boilerplate layout and ejs is able to pass in an object which we call title %>
+<%- include('../partials/boilerplate', {title: "New Post"}); %>
+<%- include('../partials/navbar'); %>
+
+<main class="container-lg mt-5">
+    <h1>Create new post</h1>
+    <form action="/posts" method="POST">
+        <div>
+            <label for="author">Author</label>
+            <input type="text" id="author" name="post[author]">
+        </div>
+        <div>
+            <label for="description">Description</label>
+            <input type="text" id="description" name="post[description]">
+        </div>
+        <button>Submit post</button>
+    </form>
+    <a href="/posts">All Posts</a>
+</main>
+
+<%- include('../partials/footer'); %>

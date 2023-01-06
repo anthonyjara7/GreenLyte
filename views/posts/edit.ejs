@@ -1,0 +1,19 @@
+<%# Below we call the boilerplate layout and ejs is able to pass in an object which we call title %>
+<%- include('../partials/boilerplate', {title: "Edit Post"}); %> 
+<%- include('../partials/navbar'); %>
+
+<main class="container-lg mt-5">
+    <h1>Author: <%= post.author %></h1>
+    <form action="/posts/<%= post._id %>?_method=PUT" method="POST">
+        <div class="mb-3">
+            <label class="form-label" for="description">Description</label>
+            <textarea class="form-control" id="description" name="post[description]" rows="3"><%= post.description %></textarea>
+        </div>
+        <button id="updateButton">Update Post</button>
+    </form>
+    <a href="/posts/<%= post._id %>">Cancel Edit</a>
+    <br>
+    <a href="/posts">All Posts</a>
+</main>
+    
+<%- include('../partials/footer'); %>
