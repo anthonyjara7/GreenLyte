@@ -1,8 +1,11 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const { postSchema } = require('./schemas')
+const catchAsync = require('./utils/catchAsync');
 const methodOverride = require('method-override');
 const Post = require('./models/post');
+const ExpressError = require('./utils/ExpressError');
 
 // To avoid deprecation warnings, set strictQuery to false to get ready for mongoose 7.0
 mongoose.set('strictQuery', false);
@@ -22,53 +25,78 @@ app.use(express.urlencoded({ extended: true }));    // Enables express to parse 
 app.use(methodOverride('_method')); // Allows put and delete methods within ejs files
 app.use(express.static(path.join(__dirname, 'public')));    // Lets express serve files in the public directory, browser will reject files otherwise
 
+// Serverside validation to handle any incoming requests which
+// contain only partial information needed
+// Examples can be shown through postman
+const validatePost = (req, res, next) => {
+    const { error } = postSchema.validate(req.body);
+    if(error) {
+        const msg = error.details.map(element => element.message).join(',');
+        throw new ExpressError(msg, 400);
+    } else {
+        next();
+    }
+}
+
 // Home route
 app.get('/', (req, res) => {
     res.render('home'); // the view parameter should not begin with a '/' for res.render
 });
 
 // Displays all posts
-app.get('/posts', async (req, res) => {
+app.get('/posts', catchAsync(async (req, res, next) => {
     const posts = await Post.find({});
     res.render('posts/index', { posts });
-})
+}))
 
 // Displays the create post form
-app.get('/posts/new', async (req, res) => {
+app.get('/posts/new', (req, res) => {
     res.render('posts/new');
 })
 
 // Creates a new post and submits it to the database
-app.post('/posts', async (req, res) => {
-    console.log(req.body);
+app.post('/posts', validatePost, catchAsync(async (req, res, next) => {
     const post = new Post(req.body.post);
     await post.save();
     res.redirect(`/posts/${post._id}`);
-})
+}))
 
 // Displays a specific post
-app.get('/posts/:id', async (req, res) => {
+app.get('/posts/:id', catchAsync(async (req, res, next) => {
     const post = await Post.findById(req.params.id);
     res.render('posts/show', { post });
-})
+}))
 
 // Displays the edit post form
-app.get('/posts/:id/edit', async (req, res) => {
+app.get('/posts/:id/edit', catchAsync(async (req, res, next) => {
     const post = await Post.findById(req.params.id);
     res.render('posts/edit', { post });
-})
+}))
 
 // Updates a post from the database
-app.put('/posts/:id', async (req, res) => {
+app.put('/posts/:id', validatePost, catchAsync(async (req, res, next) => {
     const { id } = req.params;
     const post = await Post.findByIdAndUpdate(id, { ...req.body.post });
     res.redirect(`/posts/${post._id}`);
-})
+}))
 
 // Deletes a post from the databse
-app.delete('/posts/:id', async (req, res) => {
+app.delete('/posts/:id', catchAsync(async (req, res, next) => {
     const post = await Post.findByIdAndDelete(req.params.id);
     res.redirect('/posts');
+}))
+
+// If a user tries to go to an endpoint that does not exist, this will execute
+// since all other endpoints have been checked
+app.all('*', (req, res, next) => {
+    next(new ExpressError('Page not found', 404));
+})
+
+// The error handler which will execute when any error ocurs
+app.use((err, req, res, next) => {
+    const { statusCode = 500 } = err
+    if (!err.message) err.message = 'Oh No, Something Went Wrong';
+    res.status(statusCode).render('error', { err });
 })
 
 // Turns on the server to listen for connections

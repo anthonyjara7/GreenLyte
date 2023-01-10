@@ -3,14 +3,23 @@
 <%- include('../partials/navbar'); %>
 
 <main class="container-lg mt-5">
-    <h1><%= post.author %></h1>
-    <p><%= post.description %></p>
-    <a href="/posts/<%= post._id %>/edit">Edit</a>
+    <h1 class="text-center"><%= post.author %></h1>
+    <div class="col-8 offset-2">
+        <p class="mt-4"><%= post.description %></p>
+        <div class="row">
+            <div class="col-1">
+                <a href="/posts/<%= post._id %>/edit">Edit</a>
+            </div>
+            <div class="col-1">
+                <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
+                    <button id="editButton">Delete</button>
+                </form>
+            </div>
+        </div>
+        <a href="/posts">All Posts</a>
+    </div>
 
-    <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
-        <button>Delete</button>
-    </form>
-    <a href="/posts">All Posts</a>
+    
 </main>
 
 <%- include('../partials/footer'); %>

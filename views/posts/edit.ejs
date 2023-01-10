@@ -3,17 +3,25 @@
 <%- include('../partials/navbar'); %>
 
 <main class="container-lg mt-5">
-    <h1>Author: <%= post.author %></h1>
-    <form action="/posts/<%= post._id %>?_method=PUT" method="POST">
-        <div class="mb-3">
-            <label class="form-label" for="description">Description</label>
-            <textarea class="form-control" id="description" name="post[description]" rows="3"><%= post.description %></textarea>
-        </div>
-        <button id="updateButton">Update Post</button>
-    </form>
-    <a href="/posts/<%= post._id %>">Cancel Edit</a>
-    <br>
-    <a href="/posts">All Posts</a>
+    <h1 class="text-center">Author: <%= post.author %></h1>
+    <div class="col-8 offset-2">
+        <form action="/posts/<%= post._id %>?_method=PUT" method="POST" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label class="form-label" for="description">Description</label>
+                <textarea class="form-control" id="description" name="post[description]" rows="3" class="form-control" required><%= post.description %></textarea>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please choose a description.
+                </div>
+            </div>
+            <button id="updateButton">Update Post</button>
+        </form>
+        <a href="/posts/<%= post._id %>">Cancel Edit</a>
+        <br>
+        <a href="/posts">All Posts</a>
+    </div>
 </main>
     
 <%- include('../partials/footer'); %>

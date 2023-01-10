@@ -1,0 +1,14 @@
+<%# Below we call the boilerplate layout and ejs is able to pass in an object which we call title %>
+<%- include('./partials/boilerplate', {title: "All Posts"}); %>
+<%- include('./partials/navbar'); %>
+
+<main class="container-lg mt-5">
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading"><%= err.message %></h4>
+        <p>
+            <%= err.stack %>
+        </p>
+      </div>
+</main>
+
+<%- include('./partials/footer'); %>

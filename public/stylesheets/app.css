@@ -1,4 +1,4 @@
-#updateButton {
+#updateButton, #editButton, #submitButton{
     background-color: lightgreen;
     border-color: green;
 }
