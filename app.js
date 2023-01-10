@@ -18,11 +18,11 @@ mongoose.connect('mongodb://127.0.0.1:27017/socialApp')
 // Creates our Express application
 const app = express();
 
-app.set('view engine', 'ejs');  // Enables express to use ejs files for viewing
+app.set('view engine', 'ejs');  // Enables express to utilize ejs templates
 app.set('views', path.join(__dirname, 'views'));    // makes app automatically search the views folder
 
 app.use(express.urlencoded({ extended: true }));    // Enables express to parse html requests
-app.use(methodOverride('_method')); // Allows put and delete methods within ejs files
+app.use(methodOverride('_method')); // Allows put and delete endpoints through ejs templates
 app.use(express.static(path.join(__dirname, 'public')));    // Lets express serve files in the public directory, browser will reject files otherwise
 
 // Serverside validation to handle any incoming requests which
@@ -40,7 +40,7 @@ const validatePost = (req, res, next) => {
 
 // Home route
 app.get('/', (req, res) => {
-    res.render('home'); // the view parameter should not begin with a '/' for res.render
+    res.render('home'); // the view should not begin with a '/' for res.render since res.render already looks in the views folder
 });
 
 // Displays all posts
