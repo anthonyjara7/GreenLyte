@@ -3,11 +3,14 @@
 <%- include('../partials/navbar'); %>
 
 <main class="container-lg mt-5">
-    <h1 class="text-center">Author: <%= post.author %></h1>
-    <div class="col-8 offset-2">
+    <div class="card col-8 offset-2 p-2">
         <form action="/posts/<%= post._id %>?_method=PUT" method="POST" class="needs-validation" novalidate>
             <div class="mb-3">
-                <label class="form-label" for="description">Description</label>
+                <label for="title" class="form-label">Author</label>
+                <input type="text" class="form-control" name="post[author]" id="author" value="<%= post.author %>">
+                <label for="title" class="form-label pt-2">Title</label>
+                <input type="text" class="form-control" name="post[title]" id="title" value="<%= post.title %>">
+                <label class="form-label pt-2" for="description">Description</label>
                 <textarea class="form-control" id="description" name="post[description]" rows="3" class="form-control" required><%= post.description %></textarea>
                 <div class="valid-feedback">
                     Looks good!

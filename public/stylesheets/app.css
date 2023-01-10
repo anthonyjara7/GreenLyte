@@ -1,4 +1,10 @@
 #updateButton, #editButton, #submitButton{
     background-color: lightgreen;
-    border-color: green;
+    border: 1px solid green;
+    border-radius: 5px;
+}
+
+#editAnchor {
+    color: black;
+    text-decoration-line: none;
 }
