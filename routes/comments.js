@@ -29,6 +29,7 @@ router.put('/:commentId', isLoggedIn, isCommentAuthor, validateComment, catchAsy
     const post = await Post.findByIdAndUpdate(id, { $pull: { comments: commentId } });
     await Comment.findByIdAndDelete(commentId);
     const comment = new Comment(req.body.comment);
+    comment.author = req.user._id;
     post.comments.push(comment);
     await comment.save();
     await post.save();
