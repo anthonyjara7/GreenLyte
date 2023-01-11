@@ -5,22 +5,36 @@ const catchAsync = require('./utils/catchAsync');
 const methodOverride = require('method-override');
 const session = require('express-session'); // Allows us to store data on the server
 const flash = require('connect-flash');     // Flash messages
+const passport = require('passport');   // Handles authentication
+const LocalStrategy = require('passport-local');  // Handles authentication with username and password
 
 const { postSchema, commentSchema } = require('./schemas')
 const Post = require('./models/post');
 const Comment = require('./models/comment');
+const User = require('./models/user');
 const ExpressError = require('./utils/ExpressError');
 
-const posts = require('./routes/posts');
-const comments = require('./routes/comments');
+const userRoutes = require('./routes/users');
+const postRoutes = require('./routes/posts');
+const commentRoutes = require('./routes/comments');
 
 // To avoid deprecation warnings, set strictQuery to false to get ready for mongoose 7.0
 mongoose.set('strictQuery', false);
 
 // Establishes connection to localhost database
+// Will throw error if initial connection fails
 mongoose.connect('mongodb://127.0.0.1:27017/socialApp')
     .then(() => console.log("Databse Connection Established"))
     .catch(err => console.log(`Error: ${err}`));
+
+// Gets the connection object
+const db = mongoose.connection;
+// Binds the connection to an error event (to get notification of connection errors)
+db.on('error', console.error.bind(console, 'connection error:'));
+// Will execute once the connection is open
+db.once('open', () => {
+    console.log("Database Connected");
+});
 
 // Creates our Express application
 const app = express();
@@ -40,18 +54,28 @@ const sessionConfig = { // Configures the session
         httpOnly: true, // httpOnly: true means that the cookie will not be accessible through javascript
         maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week in milliseconds
     }
-}
+};
+
 app.use(session(sessionConfig));    // Enables the session
 app.use(flash());   // Enables flash messages
 
+app.use(passport.initialize()); // Enables passport
+app.use(passport.session());    // Enables passport to use sessions for persistent login sessions
+passport.use(new LocalStrategy(User.authenticate()));   // Tells passport to use the authenticate method from passport-local-mongoose
+
+passport.serializeUser(User.serializeUser());   // Tells passport how to store the user in the session
+passport.deserializeUser(User.deserializeUser()); // Tells passport how to unstore the user from the session
+
 app.use((req, res, next) => {
+    res.locals.currentUser = req.user;  // Makes the current user available to all templates
     res.locals.success = req.flash('success');  // Makes the flash messages available to all templates
     res.locals.error = req.flash('error');
     next();
-})
+});
 
-app.use('/posts', posts);   // All routes in posts.js will be prefixed with /posts
-app.use('/posts/:id/comments', comments);   // All routes in comments.js will be prefixed with /posts/:id/comments
+app.use('/', userRoutes);     // All routes in userRoutes.js will be prefixed with /userRoutes
+app.use('/posts', postRoutes);   // All routes in postRoutes.js will be prefixed with /postRoutes
+app.use('/posts/:id/comments', commentRoutes);   // All routes in commentRoutes.js will be prefixed with /postRoutes/:id/commentRoutes
 
 // Home route
 app.get('/', (req, res) => {

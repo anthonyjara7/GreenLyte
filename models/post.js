@@ -3,9 +3,12 @@ const Comment = require('./comment')
 const Schema = mongoose.Schema;
 
 const PostSchema = new Schema({
-    author: String,
     title: String,
     description: String,
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
     comments: [
         {
             type: Schema.Types.ObjectId,

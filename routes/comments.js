@@ -1,28 +1,21 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true }); // allows middleware to look in the parent router and find the id
 const catchAsync = require('../utils/catchAsync');
+const { isLoggedIn, validateComment, isCommentAuthor } = require('../middleware');
 
 const { commentSchema } = require('../schemas');
 const ExpressError = require('../utils/ExpressError');
 const Post = require('../models/post');
 const Comment = require('../models/comment');
 
-// Servserside validation to handle incoming comment requests
-const validateComment = (req, res, next) => {
-    const { error } = commentSchema.validate(req.body);
-    if(error) {
-        const msg = error.details.map(element => element.message).join(',');
-        throw new ExpressError(msg, 400);
-    } else {
-        next();
-    }
-}
+
 
 // Posts a comment to a specific post
-router.post('/', validateComment, catchAsync(async (req, res, next) => {
+router.post('/', isLoggedIn, validateComment, catchAsync(async (req, res, next) => {
     const { id } = req.params;
     const post = await Post.findById(id);
     const comment = new Comment(req.body.comment);
+    comment.author = req.user._id;
     post.comments.push(comment);
     await comment.save();
     await post.save();
@@ -31,9 +24,10 @@ router.post('/', validateComment, catchAsync(async (req, res, next) => {
 }))
 
 // Updates the comment on a specific post
-router.put('/:commentId', validateComment, catchAsync(async (req, res, next) => {
+router.put('/:commentId', isLoggedIn, isCommentAuthor, validateComment, catchAsync(async (req, res, next) => {
     const { id, commentId } = req.params;
     const post = await Post.findByIdAndUpdate(id, { $pull: { comments: commentId } });
+    await Comment.findByIdAndDelete(commentId);
     const comment = new Comment(req.body.comment);
     post.comments.push(comment);
     await comment.save();
@@ -43,7 +37,7 @@ router.put('/:commentId', validateComment, catchAsync(async (req, res, next) => 
 }))
 
 // Deletes a comment from a specific post
-router.delete('/:commentId', catchAsync(async (req, res, next) => {
+router.delete('/:commentId', isLoggedIn, isCommentAuthor, catchAsync(async (req, res, next) => {
     const { id, commentId } = req.params;
     const post = await Post.findByIdAndUpdate(id, { $pull: { comments: commentId } });
     await Comment.findByIdAndDelete(commentId);

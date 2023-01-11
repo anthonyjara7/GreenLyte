@@ -1,10 +1,18 @@
-#updateButton, #editButton, #submitButton{
+.submitButton, .editButton, .deleteButton{
     background-color: lightgreen;
     border: 1px solid green;
-    border-radius: 5px;
+    border-radius: 15px;
+    padding: 5px 10px;
 }
 
-#editAnchor {
+.cancelButton {
+    background-color: lightgrey;
+    border: 1px solid grey;
+    border-radius: 15px;
+    padding: 5px 10px;
+}
+
+.buttonAnchor {
     color: black;
     text-decoration-line: none;
 }

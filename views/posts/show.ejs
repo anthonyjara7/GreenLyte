@@ -6,83 +6,83 @@
     <div class="col-md-6">
         <div class="card p-3">
             <h1><%= post.title %></h1>
-            <h4><%= post.author %></h4>
+            <h4>By <%= post.author.username %></h4>
             <p><%= post.description %></p>
-            <div class="row gap-2">
+            <% if (currentUser && post.author.equals(currentUser)) { %>
+            <div class="row gap-3">
                 <div class="col-1">
-                    <button id="editButton">
-                        <a href="/posts/<%= post._id %>/edit" id="editAnchor">Edit</a>
+                    <button class="editButton">
+                        <a href="/posts/<%= post._id %>/edit" class="buttonAnchor">Edit</a>
                     </button>
                 </div>
                 <div class="col-1">
                     <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
-                        <button id="editButton">Delete</button>
+                        <button class="deleteButton">Delete</button>
                     </form>
                 </div>
             </div>
+            <% } %>
         </div>
     </div>
     <div class="col-md-6 mt-3 mt-md-0">
+        <% if (currentUser) { %>
         <h2>Submit a new comment</h2>
         <form action="/posts/<%= post._id %>/comments" method="POST">
-            <label for="comment" class="form-label">Author</label>
-            <input type="text" id="comment" name="comment[author]" class="form-control">
             <label for="comment" class="form-label mt-2">Description</label>
             <textarea type="text" id="comment" name="comment[description]" class="form-control"></textarea>
-            <button id="submitButton" class="my-3">Submit</button>
+            <button class="my-3 submitButton">Submit</button>
         </form>
+        <% } %>
         <% for (let comment of post.comments) { %>
             <div class="card p-3 mb-3">
-                <h5><%= comment.author %></h5>
+                <h5>By <%= comment.author.username %></h5>
                 <p><%= comment.description %></p>
-                <div class="row gap-2">
+                <% if (currentUser && comment.author.equals(currentUser)) { %>
+                <div class="row gap-3">
                     <div class="col-1">
-                        <button type="button" id="editButton" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <%# Below we use the data-bs-toggle and data-bs-target attributes to toggle the modal %>
+                        <%# We also use the data-bs-backdrop and data-bs-keyboard attributes to prevent the user from closing the modal %>
+                        <%# Without specifying data-bs-target to a unique id, the modal will not work since all edit buttons with open the same modal for the first comment %>
+                        <button type="button" class="editButton" data-bs-toggle="modal" data-bs-target="#modal<%= comment._id %>">
                             Edit
                         </button>
-                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal fade" id="modal<%= comment._id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalLabel<%= comment._id %>" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                 <div class="modal-content">
-                                <form action="/posts/<%= post._id %>/comments/<%= comment._id %>?_method=PUT" method="POST" class="needs-validation" novalidate>
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Comment</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body pb-0">
-                                        <label for="author" class="form-label">Author</label>
-                                        <input type="text" name="comment[author]" class="form-control" value="<%= comment.author %>" required>
-                                        <div class="valid-feedback">
-                                            Looks good!
+                                    <form action="/posts/<%= post._id %>/comments/<%= comment._id %>?_method=PUT" method="POST" class="needs-validation" novalidate>
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Comment</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <div class="invalid-feedback">
-                                            Please enter a name.
+                                        <div class="modal-body pb-0">
+                                            <h1><%= comment.author.username %></h1>
                                         </div>
-                                    </div>
-                                    <div class="modal-body">
-                                        <label for="description" class="form-label">Comment</label>
-                                        <textarea class="form-control" id="description" name="comment[description]" rows="3" class="form-control" required><%= comment.description %></textarea>
-                                        <div class="valid-feedback">
-                                            Looks good!
+                                        <div class="modal-body">
+                                            <label for="description" class="form-label">Comment</label>
+                                            <textarea class="form-control" name="comment[description]" rows="3" class="form-control" required><%= comment.description %></textarea>
+                                            <div class="valid-feedback">
+                                                Looks good!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                Please enter a comment.
+                                            </div>
                                         </div>
-                                        <div class="invalid-feedback">
-                                            Please enter a comment.
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn cancelButton" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn submitButton">Save Changes</button>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn" id="submitButton">Save Changes</button>
-                                    </div>
-                                </form>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-1">
                         <form action="/posts/<%= post._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-                            <button id="editButton">Delete</button>
+                            <button class="deleteButton">Delete</button>
                         </form>
                     </div>
                 </div>
+                <% } %>
             </div>
         <% } %>
     </div>

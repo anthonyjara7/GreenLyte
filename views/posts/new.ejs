@@ -7,16 +7,6 @@
     <div class="col-6 offset-3">
         <form action="/posts" method="POST" class="needs-validation" novalidate>
             <div class="mb-3">
-                <label class="form-label" for="author">Author</label>
-                <input type="text" id="author" name="post[author]" class="form-control" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Please enter a name.
-                </div>
-            </div>
-            <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" id="title" class="form-control" name="post[title]" required>
                 <div class="valid-feedback">
@@ -36,7 +26,7 @@
                     Please choose a description.
                 </div>
             </div>
-            <button id="submitButton">Submit post</button>
+            <button class="submitButton">Submit post</button>
         </form>
         <a href="/posts">All Posts</a>
     </div>

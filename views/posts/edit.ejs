@@ -34,9 +34,12 @@
                 Please choose a description.
             </div>
         </div>
-        <button id="updateButton">Update Post</button>
+        <button class="submitButton">Update Post</button>
+        <button class="cancelButton">
+            <a href="/posts/<%= post._id %>" class="buttonAnchor">Cancel Edit</a>
+        </button>
     </form>
-    <a href="/posts/<%= post._id %>">Cancel Edit</a>
+    
     <br>
     <a href="/posts">All Posts</a>
 </div>

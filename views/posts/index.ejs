@@ -8,7 +8,7 @@
         <div class="mt-2">
             <% for (let post of posts) { %>
                 <div class="card p-2 mt-2">
-                    <a href="/posts/<%= post._id %>"><%= post.author %> wrote: <%= post.title %></a>
+                    <a href="/posts/<%= post._id %>"><%= post.author.username %> wrote: <%= post.title %></a>
                 </div>
             <% } %>
         </div>

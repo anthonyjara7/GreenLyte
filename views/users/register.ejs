@@ -1,0 +1,44 @@
+<%# Below we call the boilerplate layout and ejs is able to pass in an object which we call title %>
+<%- include('../partials/boilerplate', {title: "Edit Post"}); %> 
+<%- include('../partials/navbar'); %>
+
+<div class="card mx-auto" style="width: 24rem;">
+    <div class="card-body m-auto">
+        <h1 class="card-title text-center mb-3">Register</h1>
+        <form action="/register" method="POST" class="needs-validation" novalidate>
+            <div>
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" name="username" id="username" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please enter a name.
+                </div>
+            </div>
+            <div>
+                <label for="email" class="form-label pt-2">Email</label>
+                <input type="email" class="form-control" name="email" id="email" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please choose an email.
+                </div>
+            </div>
+            <div>
+                <label for="password" class="form-label pt-2">Password</label>
+                <input type="password" class="form-control" name="password" id="password" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please choose a password.
+                </div>
+            </div>
+            <button class="submitButton mt-3">Submit</button>
+        </form>
+    </div>
+</div>
+
+<%- include('../partials/footer'); %>

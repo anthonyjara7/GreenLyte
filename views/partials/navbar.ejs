@@ -6,14 +6,18 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active text-light" aria-current="page" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="/posts/new">Create New Post</a>
-                </li>
-            </ul>
+            <div class="navbar-nav">
+                <a class="nav-link active text-light" href="/">Home</a>
+                <a class="nav-link text-light" href="/posts/new">Create New Post</a>
+            </div>
+            <div class="navbar-nav ms-auto">
+                <% if(!currentUser) { %>
+                <a class="nav-link text-light" href="/login">Login</a>
+                <a class="nav-link text-light" href="/register">Register</a>
+                <% } else { %>
+                <a class="nav-link text-light" href="/logout">Logout</a>
+                <% } %>
+            </div>
         </div>
     </div>
 </nav>
