@@ -67,6 +67,7 @@ passport.serializeUser(User.serializeUser());   // Tells passport how to store t
 passport.deserializeUser(User.deserializeUser()); // Tells passport how to unstore the user from the session
 
 app.use((req, res, next) => {
+    console.log(req.session);   // Prints the session to the console
     res.locals.currentUser = req.user;  // Makes the current user available to all templates
     res.locals.success = req.flash('success');  // Makes the flash messages available to all templates
     res.locals.error = req.flash('error');
