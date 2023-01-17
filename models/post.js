@@ -14,7 +14,11 @@ const PostSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Comment'
         }
-    ]
+    ],
+    bulletin: {
+        type: Schema.Types.ObjectId,
+        ref: 'Bulletin'
+    }
 })
 
 // Deletion middleware which deletes all comments associated with a post

@@ -3,7 +3,7 @@
 <%- include('../partials/navbar'); %>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-7">
         <div class="card p-3">
             <h1><%= post.title %></h1>
             <h4>By <%= post.author.username %></h4>
@@ -24,19 +24,19 @@
             <% } %>
         </div>
     </div>
-    <div class="col-md-6 mt-3 mt-md-0">
+    <div class="col-md-5 mt-3 mt-md-0">
         <% if (currentUser) { %>
         <h2>Submit a new comment</h2>
-        <form action="/posts/<%= post._id %>/comments" method="POST">
+        <form action="/posts/<%= post._id %>/comments" method="POST" class="needs-validation" novalidate>
             <label for="comment" class="form-label mt-2">Description</label>
-            <textarea type="text" id="comment" name="comment[description]" class="form-control"></textarea>
+            <textarea type="text" id="comment" name="comment[description]" class="form-control" required></textarea>
             <button class="my-3 submitButton">Submit</button>
         </form>
         <% } %>
         <% for (let comment of post.comments) { %>
             <div class="card p-3 mb-3">
-                <h5>By <%= comment.author.username %></h5>
                 <p><%= comment.description %></p>
+                <h6><%= comment.author.username %></h6>
                 <% if (currentUser && comment.author.equals(currentUser)) { %>
                 <div class="row gap-3">
                     <div class="col-1">
@@ -87,5 +87,4 @@
         <% } %>
     </div>
 </div>
-
 <%- include('../partials/footer'); %>

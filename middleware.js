@@ -37,7 +37,7 @@ module.exports.validateComment = (req, res, next) => {
     }
 };
 
-module.exports.isAuthor = async (req, res, next) => {
+module.exports.isPostAuthor = async (req, res, next) => {
     const { id } = req.params;
     const post = await Post.findById(id);
     if(!post.author.equals(req.user._id)) {

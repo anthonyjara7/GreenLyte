@@ -2,11 +2,89 @@
 <%- include('./partials/boilerplate', {title: "Home"}); %> 
 <%- include('./partials/navbar'); %>
 
-<div class="row">
-    <div class="col-1"></div>
-    <div class="col-6">
-        <h1>Home</h1>
-        <a href="/posts" id="allposts">All Posts</a>
+<h1 class="mb-3">Choose A Bulletin To View</h1>
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+        <div class="col mb-3">
+            <div class="card h-100">
+                <img src="https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80" class="card-img-top bulletinImage" alt="Post-it notes on a wall">
+                <div class="card-body d-grid">
+                <h5 class="card-title">All Posts</h5>
+                <p class="card-text">See what everyone is posting right here in the convenience of this bulletin!</p>
+                <a href="/posts" class="btn btn-primary pt-2">View All Posts</a>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card h-100" >
+                <img src="https://images.unsplash.com/photo-1512314889357-e157c22f938d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" class="card-img-top bulletinImage" alt="Cookware with pasta">
+                <div class="card-body d-grid">
+                <h5 class="card-title">Brainstorm</h5>
+                <p class="card-text">Ideas are the bridge from imagination to reality, discuss any that you have here!</p>
+                <a href="#" class="btn btn-primary pt-2">View Brainstorm</a>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card h-100" >
+                <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" class="card-img-top bulletinImage" alt="Cookware with pasta">
+                <div class="card-body d-grid">
+                <h5 class="card-title">Books</h5>
+                <p class="card-text">Share your favorite book, author, series, and your love for creative writing.</p>
+                <a href="#" class="btn btn-primary pt-2">View Books</a>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card h-100" >
+                <img src="https://images.unsplash.com/photo-1518291344630-4857135fb581?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" class="card-img-top bulletinImage" alt="Cookware with pasta">
+                <div class="card-body d-grid">
+                <h5 class="card-title">Cooking</h5>
+                <p class="card-text">Looking to create a new recipe and need some help? Get the help you need here.</p>
+                <a href="#" class="btn btn-primary pt-2">View Cooking</a>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card h-100">
+                <img src="https://images.unsplash.com/photo-1562329265-95a6d7a83440?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1070&q=80" class="card-img-top bulletinImage" alt="A Theatre">
+                <div class="card-body d-grid">
+                <h5 class="card-title">Entertainment</h5>
+                <p class="card-text">From the latest movies, TV shows, etc., all of it can be found here!</p>
+                <a href="#" class="btn btn-primary pt-2">View Entertainment</a>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card h-100">
+                <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" class="card-img-top bulletinImage" alt="Teal LED Panel">
+                <div class="card-body d-grid">
+                <h5 class="card-title">Gaming</h5>
+                <p class="card-text">Games are fun, and even funner with people you love to play with!</p>
+                <a href="#" class="btn btn-primary pt-2">View Gaming</a>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card h-100">
+                <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1121&q=80" class="card-img-top bulletinImage" alt="Teal LED Panel">
+                <div class="card-body d-grid">
+                <h5 class="card-title">Traveling</h5>
+                <p class="card-text">Explore the world with people who want to experience new places.</p>
+                <a href="#" class="btn btn-primary pt-2">View Traveling</a>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-3">
+            <div class="card h-100">
+                <img src="https://images.unsplash.com/photo-1472289065668-ce650ac443d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" class="card-img-top bulletinImage" alt="Teal LED Panel">
+                <div class="card-body d-grid">
+                <h5 class="card-title">Other</h5>
+                <p class="card-text">For everything else that you would like to talk about, here is your place!</p>
+                <a href="#" class="btn btn-primary pt-2">View Other</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
     

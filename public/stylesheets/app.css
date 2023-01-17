@@ -16,3 +16,8 @@
     color: black;
     text-decoration-line: none;
 }
+
+.bulletinImage {
+    width: 100%;
+    height: 60%;
+}

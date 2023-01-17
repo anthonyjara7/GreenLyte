@@ -17,6 +17,7 @@ const ExpressError = require('./utils/ExpressError');
 const userRoutes = require('./routes/users');
 const postRoutes = require('./routes/posts');
 const commentRoutes = require('./routes/comments');
+const bulletinRoutes = require('./routes/bulletins');
 
 // To avoid deprecation warnings, set strictQuery to false to get ready for mongoose 7.0
 mongoose.set('strictQuery', false);
@@ -67,7 +68,7 @@ passport.serializeUser(User.serializeUser());   // Tells passport how to store t
 passport.deserializeUser(User.deserializeUser()); // Tells passport how to unstore the user from the session
 
 app.use((req, res, next) => {
-    console.log(req.session);   // Prints the session to the console
+    //console.log(req.session);   // Prints the session to the console
     res.locals.currentUser = req.user;  // Makes the current user available to all templates
     res.locals.success = req.flash('success');  // Makes the flash messages available to all templates
     res.locals.error = req.flash('error');
@@ -77,6 +78,7 @@ app.use((req, res, next) => {
 app.use('/', userRoutes);     // All routes in userRoutes.js will be prefixed with /userRoutes
 app.use('/posts', postRoutes);   // All routes in postRoutes.js will be prefixed with /postRoutes
 app.use('/posts/:id/comments', commentRoutes);   // All routes in commentRoutes.js will be prefixed with /postRoutes/:id/commentRoutes
+//app.use('/', bulletinRoutes);    // All routes in boardRoutes.js will be prefixed with /boardRoutes
 
 // Home route
 app.get('/', (req, res) => {

@@ -5,7 +5,7 @@
 <div class="row-md">
     <h1 class="text-center">Create new post</h1>
     <div class="col-6 offset-3">
-        <form action="/posts" method="POST" class="needs-validation" novalidate>
+        <form action="/posts" method="POST" novalidate class="needs-validation">
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" id="title" class="form-control" name="post[title]" required>
@@ -31,5 +31,6 @@
         <a href="/posts">All Posts</a>
     </div>
 </div>
+
 
 <%- include('../partials/footer'); %>
