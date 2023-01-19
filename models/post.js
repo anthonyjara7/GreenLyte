@@ -22,18 +22,8 @@ const PostSchema = new Schema({
 // 'doc' is the object that was deleted which we can access in this middleware
 PostSchema.post('findOneAndDelete', async function (doc) {
     if (doc) {
+        console.log(doc);
         // Goes through comments array in doc and deletes all comments with the associated _id
-        await Comment.deleteMany({
-            _id: {
-                $in: doc.comments
-            }
-        })
-    }
-})
-
-PostSchema.post('deleteMany', async function (doc) {
-    if (doc) {
-        //console.log(doc.comments);
         await Comment.deleteMany({
             _id: {
                 $in: doc.comments

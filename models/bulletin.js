@@ -14,12 +14,10 @@ const BulletinSchema = new Schema({
 
 BulletinSchema.post('findOneAndDelete', async function (doc) {
     if (doc) {
-        const posts = await Post.deleteMany({
-            bulletin: {
-                $in: doc.title
-            }
+        const posts = await Post.find({ bulletin: doc.title });
+        posts.forEach(async (post) => {
+            await Post.findByIdAndDelete(post._id);
         });
-        console.log(posts);
     }
 })
 
