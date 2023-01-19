@@ -2,8 +2,9 @@
 <%- include('../partials/boilerplate', {title: "Edit Post"}); %> 
 <%- include('../partials/navbar'); %>
 
-<div class="card col-8 offset-2 p-2">
-    <form action="/posts/<%= post._id %>?_method=PUT" method="POST" class="needs-validation" novalidate>
+<div class="card col-8 offset-2 p-3">
+    <h1 class="text-center">Edit Post</h1>
+    <form action="/<%- bulletinId %>/posts/<%= post._id %>?_method=PUT" method="POST" class="needs-validation" novalidate>
         <div>
             <label for="title" class="form-label pt-2">Title</label>
             <input type="text" class="form-control" name="post[title]" id="title" value="<%= post.title %>" required>
@@ -26,7 +27,7 @@
         </div>
         <button class="submitButton">Update Post</button>
         <button class="cancelButton">
-            <a href="/posts/<%= post._id %>" class="buttonAnchor">Cancel Edit</a>
+            <a href="<%- bulletinId %>/posts/<%= post._id %>" class="buttonAnchor">Cancel Edit</a>
         </button>
     </form>
     

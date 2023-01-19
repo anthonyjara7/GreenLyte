@@ -12,7 +12,7 @@ module.exports.register = async (req, res, next) => {
         req.login(registeredUser, err => {
             if (err) return next(err);
             req.flash('success', 'Welcome to GreenLyte!');
-            res.redirect('/posts');
+            res.redirect('/');
         })
     } catch (e) {
         req.flash('error', e.message);
@@ -26,8 +26,7 @@ module.exports.renderLoginForm = (req, res) => {
 
 module.exports.login = (req, res) => {
     req.flash('success', 'Welcome back!');
-    const redirectUrl = req.session.returnTo || '/posts';
-    delete req.session.returnTo;
+    const redirectUrl = req.session.returnTo || '/bulletins';
     res.redirect(redirectUrl);
 };
 
@@ -36,5 +35,5 @@ module.exports.logout = (req, res, next) => {
         if (err) return next(err);
     });
     req.flash('success', 'Goodbye!');
-    res.redirect('/posts');
+    res.redirect('/');
 }

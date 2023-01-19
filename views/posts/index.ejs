@@ -4,11 +4,39 @@
 
 <div class="row">
     <div class="col-6 offset-1">
-        <h1>All Posts</h1>
+        <h1>
+            <%= bulletinId %>
+            <a href="/<%- bulletinId %>/posts/new" class="btn btn-success ml-2">+ Create New Post</a>
+            <a href="/<%- bulletinId %>/edit" class="btn btn-success ml-2">Edit Bulletin</a>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bulletinDeleteModal">
+                Delete Bulletin
+            </button>
+            <div class="modal fade" id="bulletinDeleteModal" data-bs-backdrop="static">
+                <div class="modal-dialog moda-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete Bulletin</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Deleting a bulletin deletes all posts associated with the bulletin. <br>
+                            By clicking delete you are agreeing to delete all posts associated with this bulletin.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <form action="/<%- bulletinId %>?_method=DELETE" method="POST">
+                                <button class="btn btn-danger mb-2">Delete Bulletin</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="/<%- bulletinId %>/"></a>
+        </h1>
         <div class="mt-2">
             <% for (let post of posts) { %>
                 <div class="card p-2 mt-2">
-                    <a href="/posts/<%= post._id %>"><%= post.author.username %> wrote: <%= post.title %></a>
+                    <a href="/<%- bulletinId %>/posts/<%= post._id %>"><%= post.author.username %> wrote: <%= post.title %></a>
                 </div>
             <% } %>
         </div>

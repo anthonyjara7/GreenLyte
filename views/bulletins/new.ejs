@@ -1,13 +1,13 @@
 <%# Below we call the boilerplate layout and ejs is able to pass in an object which we call title %>
-<%- include('../partials/boilerplate', {title: "New Post"}); %>
+<%- include('../partials/boilerplate', {title: "New Bulletin"}); %>
 <%- include('../partials/navbar'); %>
 
 <div class="card col-8 offset-2 p-3">
-    <h1 class="text-center">Create new post</h1>
-    <form action="/<%- bulletinId %>/posts" method="POST" novalidate class="needs-validation">
+    <h1 class="text-center">Create new bulletin</h1>
+    <form action="/new" method="POST" novalidate class="needs-validation">
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="text" id="title" class="form-control" name="post[title]" required>
+            <input type="text" id="title" class="form-control" name="bulletin[title]" required>
             <div class="valid-feedback">
                 Looks good!
             </div>
@@ -17,7 +17,7 @@
         </div>
         <div class="mb-3">
             <label for="description">Description</label>
-            <textarea type="text" id="description" name="post[description]" rows="3" class="form-control" required></textarea>
+            <textarea type="text" id="description" name="bulletin[description]" rows="3" class="form-control" required></textarea>
             <div class="valid-feedback">
                 Looks good!
             </div>
@@ -25,9 +25,13 @@
                 Please choose a description.
             </div>
         </div>
-        <button class="submitButton">Submit post</button>
+        <div class="mb-3">
+            <label for="img">Image URL</label>
+            <input type="text" id="title" class="form-control" name="bulletin[image]" required>
+        </div>
+        <button class="submitButton">Submit bulletin</button>
     </form>
-    <a href="/posts">All Posts</a>
+    <a href="/allposts">All Posts</a>
 </div>
 
 
