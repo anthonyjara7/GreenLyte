@@ -15,6 +15,11 @@ module.exports.showAllPosts = async (req, res, next) => {
 
 module.exports.showBulletin = async (req, res, next) => {
     const { bulletinId } = req.params;
+    const bulletin = await Bulletin.findOne({ title: bulletinId });
+    if(!bulletin){
+        req.flash('error', 'Cannot find that bulletin!');
+        return res.redirect('/bulletins');
+    }
     const posts = await Post.find({ bulletin: bulletinId }).populate('author');
     posts.reverse();
     res.render('posts/index', { bulletinId, posts });
@@ -41,6 +46,10 @@ module.exports.deleteBulletin = async (req, res, next) => {
 
 module.exports.renderEditForm = async (req, res, next) => {
     const { bulletinId } = req.params;
-    const bulletin = await Bulletin.findById(bulletinId);
+    const bulletin = await Bulletin.findOne({ title: bulletinId });
+    if(!bulletin){
+        //req.flash('error', 'Cannot find that bulletin!');
+        return res.redirect('/bulletins');
+    }
     res.render('bulletins/edit', { bulletin });
 }

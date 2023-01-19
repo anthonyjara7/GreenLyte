@@ -34,11 +34,11 @@ module.exports.showPost = async (req, res, next) => {
         populate: {
             path: 'author'
     }}).populate('author');
-    post.comments.reverse();
-    if (!post) {
+    if(!post){
         req.flash('error', 'Cannot find that post!');
         return res.redirect('/posts');
     }
+    post.comments.reverse();
     res.render('posts/show', { bulletinId, post });
 };
 
