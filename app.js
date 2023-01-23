@@ -1,16 +1,12 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const catchAsync = require('./utils/catchAsync');
 const methodOverride = require('method-override');
 const session = require('express-session'); // Allows us to store data on the server
 const flash = require('connect-flash');     // Flash messages
 const passport = require('passport');   // Handles authentication
 const LocalStrategy = require('passport-local');  // Handles authentication with username and password
 
-const { postSchema, commentSchema } = require('./schemas')
-const Post = require('./models/post');
-const Comment = require('./models/comment');
 const User = require('./models/user');
 const ExpressError = require('./utils/ExpressError');
 
@@ -75,9 +71,9 @@ app.use((req, res, next) => {
 });
 
 app.use('/', userRoutes);     // All routes in userRoutes.js will be prefixed with /userRoutes
-app.use('/', bulletinRoutes);    // All routes in bulletinRoutes.js will be prefixed with /:bulletinId (bulletinId is a parameter
-app.use('/:bulletinId/posts', postRoutes);   // All routes in postRoutes.js will be prefixed with /postRoutes
-app.use('/:bulletinId/posts/:postId/comments', commentRoutes);   // All routes in commentRoutes.js will be prefixed with /postRoutes/:id/commentRoutes
+app.use('/bulletins', bulletinRoutes);    // All routes in bulletinRoutes.js will be prefixed with /:bulletinId (bulletinId is a parameter
+app.use('/bulletins/:bulletinId/posts', postRoutes);   // All routes in postRoutes.js will be prefixed with /postRoutes
+app.use('/bulletins/:bulletinId/posts/:postId/comments', commentRoutes);   // All routes in commentRoutes.js will be prefixed with /postRoutes/:id/commentRoutes
 
 // Home route
 app.get('/', (req, res) => {

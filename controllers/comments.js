@@ -10,11 +10,11 @@ module.exports.createComment = async (req, res, next) => {
     await comment.save();
     await post.save();
     req.flash('success', 'Successfully created a new comment!');
-    res.redirect(`/${bulletinId}/posts/${post._id}`);
+    res.redirect(`/bulletins/${bulletinId}/posts/${post._id}`);
 }
 
 module.exports.updateComment = async (req, res, next) => {
-    const { postId, commentId } = req.params;
+    const { bulletinId, postId, commentId } = req.params;
     const post = await Post.findByIdAndUpdate(postId, { $pull: { comments: commentId } });
     await Comment.findByIdAndDelete(commentId);
     const comment = new Comment(req.body.comment);
@@ -23,7 +23,7 @@ module.exports.updateComment = async (req, res, next) => {
     await comment.save();
     await post.save();
     req.flash('success', 'Successfully updated a comment!');
-    res.redirect(`/posts/${post._id}`);
+    res.redirect(`/bulletins/${bulletinId}/posts/${post._id}`);
 }
 
 module.exports.deleteComment = async (req, res, next) => {
@@ -31,5 +31,5 @@ module.exports.deleteComment = async (req, res, next) => {
     const post = await Post.findByIdAndUpdate(postId, { $pull: { comments: commentId } });
     await Comment.findByIdAndDelete(commentId);
     req.flash('success', 'Successfully deleted a comment!');
-    res.redirect(`/${bulletinId}/posts/${post._id}`);
+    res.redirect(`/bulletins/${bulletinId}/posts/${post._id}`);
 }

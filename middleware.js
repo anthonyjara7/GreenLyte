@@ -1,5 +1,6 @@
 const { postSchema, commentSchema, bulletinSchema } = require('./schemas.js');
 const ExpressError = require('./utils/ExpressError');
+const ObjectID = require('mongoose').Types.ObjectId;
 const Post = require('./models/post');
 const Comment = require('./models/comment');
 const Bulletin = require('./models/bulletin');
@@ -7,7 +8,6 @@ const Bulletin = require('./models/bulletin');
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
         req.session.returnTo = req.originalUrl;
-        //console.log(res.locals.returnTo);
         req.flash('error', 'You must be signed in first!');
         return res.redirect('/login');
     }
@@ -18,7 +18,6 @@ module.exports.isLoggedIn = (req, res, next) => {
 // contain only partial information needed
 // Examples can be shown through postman
 module.exports.validatePost = (req, res, next) => {
-    //console.log(req.body);
     const { error } = postSchema.validate(req.body);
     if (error) {
         const msg = error.details.map(element => element.message).join(',');
@@ -26,6 +25,17 @@ module.exports.validatePost = (req, res, next) => {
     } else {
         next();
     }
+};
+
+module.exports.isValidPostUrl = async (req, res, next) => {
+    const { bulletinId, postId } = req.params;
+    // below will be made into a middleware to catch invalid ids
+    if (!ObjectID.isValid(postId)) {
+        console.log('Invalid post id');
+        req.flash('error', 'Cannot find that post!');
+        return res.redirect(`/bulletins/${bulletinId}`);
+    } 
+    next();
 };
 
 // Servserside validation to handle incoming comment requests

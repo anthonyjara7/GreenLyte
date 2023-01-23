@@ -5,7 +5,7 @@ const { isLoggedIn, validateBulletin, isBulletinAuthor } = require('../middlewar
 
 const bulletins = require('../controllers/bulletins');
 
-router.route('/bulletins')
+router.route('/')
     .get(catchAsync(bulletins.index));
 
 router.route('/new')
@@ -19,5 +19,8 @@ router.route('/:bulletinId')
     .get(catchAsync(bulletins.showBulletin))
     .put(isLoggedIn, isBulletinAuthor, validateBulletin, catchAsync(bulletins.updateBulletin))
     .delete(isLoggedIn, isBulletinAuthor, catchAsync(bulletins.deleteBulletin));
+
+router.route('/:bulletinId/edit')
+    .get(isLoggedIn, isBulletinAuthor, catchAsync(bulletins.renderEditForm));
 
 module.exports = router;

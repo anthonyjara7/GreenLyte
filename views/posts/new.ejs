@@ -4,7 +4,7 @@
 
 <div class="card col-8 offset-2 p-3">
     <h1 class="text-center">Create new post</h1>
-    <form action="/<%- bulletinId %>/posts" method="POST" novalidate class="needs-validation">
+    <form action="/bulletins/<%- bulletinId %>/posts" method="POST" novalidate class="needs-validation">
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
             <input type="text" id="title" class="form-control" name="post[title]" required>
@@ -16,8 +16,8 @@
             </div>
         </div>
         <div class="mb-3">
-            <label for="description">Description</label>
-            <textarea type="text" id="description" name="post[description]" rows="3" class="form-control" required></textarea>
+            <label class="form-label" for="description">Description</label>
+            <textarea class="form-control" type="text" id="description" name="post[description]" rows="3" required></textarea>
             <div class="valid-feedback">
                 Looks good!
             </div>
@@ -27,7 +27,7 @@
         </div>
         <button class="submitButton">Submit post</button>
     </form>
-    <a href="/posts">All Posts</a>
+    <a href="/bulletins/allposts">All Posts</a>
 </div>
 
 

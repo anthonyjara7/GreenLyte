@@ -1,13 +1,13 @@
 <%# Below we call the boilerplate layout and ejs is able to pass in an object which we call title %>
-<%- include('../partials/boilerplate', {title: "New Bulletin"}); %>
+<%- include('../partials/boilerplate', {title: "Edit Bulletin"}); %> 
 <%- include('../partials/navbar'); %>
 
 <div class="card col-8 offset-2 p-3">
-    <h1 class="text-center">Create new bulletin</h1>
-    <form action="/bulletins/new" method="POST" novalidate class="needs-validation">
+    <h1 class="text-center">Edit Bulletin</h1>
+    <form action="/bulletins/<%- bulletinId %>/?_method=PUT" method="POST" class="needs-validation" novalidate>
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="text" id="title" class="form-control" name="bulletin[title]" required>
+            <input type="text" class="form-control" name="bulletin[title]" id="title" value="<%= bulletin.title %>" required>
             <div class="valid-feedback">
                 Looks good!
             </div>
@@ -17,7 +17,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="description">Description</label>
-            <textarea class="form-control" type="text" id="description" name="bulletin[description]" rows="3" required></textarea>
+            <textarea class="form-control" id="description" name="bulletin[description]" rows="3" class="form-control" required><%= bulletin.description %></textarea>
             <div class="valid-feedback">
                 Looks good!
             </div>
@@ -27,12 +27,14 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="img">Image URL</label>
-            <input class="form-control" type="text" id="title" name="bulletin[image]" required>
+            <input class="form-control" type="text" id="title" name="bulletin[image]" value="<%= bulletin.image %>" required>
         </div>
-        <button class="submitButton">Submit bulletin</button>
+        <button class="submitButton">Update bulletin</button>
+        <button class="cancelButton">
+            <a href="/bulletins/<%- bulletinId %>/" class="buttonAnchor">Cancel Edit</a>
+        </button>
     </form>
-    <a href="/bulletins/allposts">All Posts</a>
+    <a href="bulletins/allposts">All Posts</a>
 </div>
-
 
 <%- include('../partials/footer'); %>

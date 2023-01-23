@@ -6,13 +6,15 @@
     <div class="col-6 offset-1">
         <h1>
             <%= bulletinId %>
-            <a href="/<%- bulletinId %>/posts/new" class="btn btn-success ml-2">+ Create New Post</a>
-            <a href="/<%- bulletinId %>/edit" class="btn btn-success ml-2">Edit Bulletin</a>
+            <% if (currentUser && bulletin.author.equals(currentUser)) { %>
+            <a href="/bulletins/<%- bulletinId %>/posts/new" class="btn btn-success ml-2">+ Create New Post</a>
+            <a href="/bulletins/<%- bulletinId %>/edit" class="btn btn-success ml-2">Edit Bulletin</a>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bulletinDeleteModal">
                 Delete Bulletin
             </button>
+            <% } %>
             <div class="modal fade" id="bulletinDeleteModal" data-bs-backdrop="static">
-                <div class="modal-dialog moda-dialog-centered">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Delete Bulletin</h5>
@@ -24,19 +26,19 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <form action="/<%- bulletinId %>?_method=DELETE" method="POST">
+                            <form action="/bulletins/<%- bulletinId %>?_method=DELETE" method="POST">
                                 <button class="btn btn-danger mb-2">Delete Bulletin</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <a href="/<%- bulletinId %>/"></a>
+            <a href="/bulletins/<%- bulletinId %>/"></a>
         </h1>
         <div class="mt-2">
             <% for (let post of posts) { %>
                 <div class="card p-2 mt-2">
-                    <a href="/<%- bulletinId %>/posts/<%= post._id %>"><%= post.author.username %> wrote: <%= post.title %></a>
+                    <a href="/bulletins/<%- bulletinId %>/posts/<%= post._id %>"><%= post.author.username %> wrote: <%= post.title %></a>
                 </div>
             <% } %>
         </div>

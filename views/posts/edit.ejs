@@ -4,7 +4,7 @@
 
 <div class="card col-8 offset-2 p-3">
     <h1 class="text-center">Edit Post</h1>
-    <form action="/<%- bulletinId %>/posts/<%= post._id %>?_method=PUT" method="POST" class="needs-validation" novalidate>
+    <form action="/bulletins/<%- bulletinId %>/posts/<%= post._id %>?_method=PUT" method="POST" class="needs-validation" novalidate>
         <div>
             <label for="title" class="form-label pt-2">Title</label>
             <input type="text" class="form-control" name="post[title]" id="title" value="<%= post.title %>" required>
@@ -17,7 +17,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label pt-2" for="description">Description</label>
-            <textarea class="form-control" id="description" name="post[description]" rows="3" class="form-control" required><%= post.description %></textarea>
+            <textarea class="form-control" id="description" name="post[description]" rows="3" required><%= post.description %></textarea>
             <div class="valid-feedback">
                 Looks good!
             </div>
@@ -27,12 +27,12 @@
         </div>
         <button class="submitButton">Update Post</button>
         <button class="cancelButton">
-            <a href="<%- bulletinId %>/posts/<%= post._id %>" class="buttonAnchor">Cancel Edit</a>
+            <a href="/bulletins/<%- bulletinId %>/posts/<%= post._id %>" class="buttonAnchor">Cancel Edit</a>
         </button>
     </form>
     
     <br>
-    <a href="/posts">All Posts</a>
+    <a href="bulletins/allposts">All Posts</a>
 </div>
     
 <%- include('../partials/footer'); %>

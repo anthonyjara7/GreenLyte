@@ -2,7 +2,11 @@
 <%- include('../partials/boilerplate', {title: "Home"}); %> 
 <%- include('../partials/navbar'); %>
 
-<h1 class="mb-3">Choose A Bulletin To View <a href="/new" class="btn btn-success ml-2">+ Create New Bulletin</a></h1>
+<h1 class="mb-3">Choose A Bulletin To View
+    <% if (currentUser) { %>
+    <a href="/bulletins/new" class="btn btn-success ml-2">+ Create New Bulletin</a>
+    <% } %>
+</h1>
 <div class="container">
     <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4">
         <% for (let bulletin of bulletins) { %>
@@ -12,7 +16,7 @@
                 <div class="card-body d-grid">
                     <h5 class="card-title"><%= bulletin.title %></h5>
                     <p class="card-text"><%= bulletin.description %></p>
-                    <a href="/<%- bulletin.title %>" class="btn btn-primary pt-2">View <%= bulletin.title %></a>
+                    <a href="/bulletins/<%- bulletin.title %>" class="btn btn-primary pt-2">View <%= bulletin.title %></a>
                 </div>
             </div>
         </div>
@@ -24,7 +28,7 @@
                 <div class="card-body d-grid">
                 <h5 class="card-title">All Posts</h5>
                 <p class="card-text">See what everyone is posting right here in the convenience of this bulletin!</p>
-                <a href="/allposts" class="btn btn-primary pt-2">View All Posts</a>
+                <a href="/bulletins/allposts" class="btn btn-primary pt-2">View All Posts</a>
                 </div>
             </div>
         </div>
@@ -34,7 +38,7 @@
                 <div class="card-body d-grid">
                 <h5 class="card-title">Brainstorm</h5>
                 <p class="card-text">Ideas are the bridge from imagination to reality, discuss any that you have here!</p>
-                <a href="/brainstorm" class="btn btn-primary pt-2">View Brainstorm</a>
+                <a href="/bulletins/brainstorm" class="btn btn-primary pt-2">View Brainstorm</a>
                 </div>
             </div>
         </div>
@@ -44,7 +48,7 @@
                 <div class="card-body d-grid">
                 <h5 class="card-title">Books</h5>
                 <p class="card-text">Share your favorite book, author, series, and your love for creative writing.</p>
-                <a href="/books" class="btn btn-primary pt-2">View Books</a>
+                <a href="/bulletins/books" class="btn btn-primary pt-2">View Books</a>
                 </div>
             </div>
         </div>
@@ -54,7 +58,7 @@
                 <div class="card-body d-grid">
                 <h5 class="card-title">Cooking</h5>
                 <p class="card-text">Looking to create a new recipe and need some help? Get the help you need here.</p>
-                <a href="/cooking" class="btn btn-primary pt-2">View Cooking</a>
+                <a href="/bulletins/cooking" class="btn btn-primary pt-2">View Cooking</a>
                 </div>
             </div>
         </div>
@@ -64,7 +68,7 @@
                 <div class="card-body d-grid">
                 <h5 class="card-title">Entertainment</h5>
                 <p class="card-text">From the latest movies, TV shows, etc., all of it can be found here!</p>
-                <a href="/entertainment" class="btn btn-primary pt-2">View Entertainment</a>
+                <a href="/bulletins/entertainment" class="btn btn-primary pt-2">View Entertainment</a>
                 </div>
             </div>
         </div>
@@ -74,7 +78,7 @@
                 <div class="card-body d-grid">
                 <h5 class="card-title">Gaming</h5>
                 <p class="card-text">Games are fun, and even funner with people you love to play with!</p>
-                <a href="/gaming" class="btn btn-primary pt-2">View Gaming</a>
+                <a href="/bulletins/gaming" class="btn btn-primary pt-2">View Gaming</a>
                 </div>
             </div>
         </div>
@@ -84,7 +88,7 @@
                 <div class="card-body d-grid">
                 <h5 class="card-title">Traveling</h5>
                 <p class="card-text">Explore the world with people who want to experience new places.</p>
-                <a href="/traveling" class="btn btn-primary pt-2">View Traveling</a>
+                <a href="/bulletins/traveling" class="btn btn-primary pt-2">View Traveling</a>
                 </div>
             </div>
         </div>
@@ -94,7 +98,7 @@
                 <div class="card-body d-grid">
                 <h5 class="card-title">Other</h5>
                 <p class="card-text">For everything else that you would like to talk about, here is your place!</p>
-                <a href="/other" class="btn btn-primary pt-2">View Other</a>
+                <a href="/bulletins/other" class="btn btn-primary pt-2">View Other</a>
                 </div>
             </div>
         </div>
