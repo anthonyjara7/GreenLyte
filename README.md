@@ -2,4 +2,4 @@
  
 # Installation
 Run
-^ `npm install`
+```npm install ```
