@@ -44,7 +44,7 @@ app.use(methodOverride('_method')); // Allows put and delete endpoints through e
 app.use(express.static(path.join(__dirname, 'public')));    // Lets express serve files in the public directory, browser will reject files otherwise
 
 const sessionConfig = { // Configures the session
-    secret: 'pieceofshitsecret',
+    secret: 'notaverygoodsecret',
     resave: false,  // resave: false means that the session will not be saved if nothing has changed
     saveUninitialized: true,   // saveUninitialized: true means that the session will be saved even if it is uninitialized
     cookie: {
