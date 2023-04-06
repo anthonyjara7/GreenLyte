@@ -70,10 +70,10 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/', userRoutes);     // All routes in userRoutes.js will be prefixed with /userRoutes
-app.use('/bulletins', bulletinRoutes);    // All routes in bulletinRoutes.js will be prefixed with /:bulletinId (bulletinId is a parameter
-app.use('/bulletins/:bulletinId/posts', postRoutes);   // All routes in postRoutes.js will be prefixed with /postRoutes
-app.use('/bulletins/:bulletinId/posts/:postId/comments', commentRoutes);   // All routes in commentRoutes.js will be prefixed with /postRoutes/:id/commentRoutes
+app.use('/', userRoutes);
+app.use('/bulletins', bulletinRoutes);    // All routes in bulletinRoutes.js will be prefixed with /bulletins
+app.use('/bulletins/:bulletinId/posts', postRoutes);   // All routes in postRoutes.js will be prefixed with /bulletins/:bulletinId/posts
+app.use('/bulletins/:bulletinId/posts/:postId/comments', commentRoutes);   // All routes in commentRoutes.js will be prefixed with /bulletins/:bulletinId/posts/:postId/comments
 
 // Home route
 app.get('/', (req, res) => {
